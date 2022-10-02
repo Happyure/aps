@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Data</title>
+</head>
+<body>
+    <h1>Update Data </h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Nama Pasien</th>
+                <td>
+
+                    <input type="text" name="namapasien" value="{{pasienobj.namapasien}}">
+                </td>
+            </tr>
+            <tr>
+                <th>Tanggal lahir</th>
+                <td>
+
+                    <input type="date" name="tanggallahir" value="{{tanggal}}" >
+                </td>
+            </tr>
+            <tr>
+                <th>Jenis kelamin</th>
+                <td>
+                    <select name="jeniskelaminpasien" id="">
+                        {%if pasienobj.jeniskelaminpasien == "Perempuan" %}
+                        <option selected value="Perempuan">Perempuan</option>
+                        <option value="Laki-laki">Laki-laki</option>
+                        {% else %}
+                        <option value="Perempuan">Perempuan</option>
+                        <option selected value="Laki-laki">Laki-laki</option>
+                        {% endif %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Nohp Pasien</th>
+                <td>
+
+                    <input type="number" name="nohppasien" value="{{pasienobj.nohppasien}}">
+                </td>
+                </tr>
+            </table>
+            <button type="submit" >UPDATE</button>
+    </form>
+</body>
+</html>

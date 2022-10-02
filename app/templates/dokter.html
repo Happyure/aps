@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Dokter</h1>
+    <table>
+        <tr>
+            <th>ID Dokter</th>
+            <th>Nama</th>
+            <th>Nomor Handphone</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in alldokterobj%}
+        <tr>
+            <td>{{ item.iddokter }}</item></td>
+            <td>{{ item.namadokter }}</item></td>
+            <td>{{ item.nohpdokter }}</item></td>
+            <td>
+                <a href="{% url 'updatedokter' item.iddokter %}">
+                    <button>Update</button>
+                </a>
+                <a href="{% url 'deletedokter' item.iddokter %}">
+                    <button>Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'createdatadokter' %}">
+        <button>
+            CREATE DATA
+        </button>
+    </a>
+</body>
+</html>

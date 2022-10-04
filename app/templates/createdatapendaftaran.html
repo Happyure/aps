@@ -12,6 +12,25 @@
     {% csrf_token %}
     <table>
         <tr>
+            <th>ID Dokter</th>
+            <td>
+                <select name="iddokter" id="" class="form-control">
+                    {% for item in alldokterobj %}
+                    <option value="{{item.iddokter}}">{{item}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>ID Pasien</th>
+            <td>
+                <select name="idpasien" id="" class="form-control">
+                    {% for item in allpasienobj %}
+                    <option value="{{item.idpasien}}">{{item}}</option>
+                    {% endfor %}
+            </td>
+        </tr>
+        <tr>
             <th>Tanggal Pendaftaran</th>
             <td>
                 <input type="date" name="tanggalpendaftaran">

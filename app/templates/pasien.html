@@ -19,7 +19,7 @@
         </tr>
         {% for item in allpasienobj%}
         <tr>
-            <td>{{ item.idpasien }}</item></td>
+            <td>PSN0{{ item.idpasien }}</item></td>
             <td>{{ item.namapasien }}</item></td>
             <td>{{ item.jeniskelaminpasien }}</item></td>
             <td>{{ item.tanggallahir }}</item></td>
@@ -31,50 +31,6 @@
             </td>
         </tr>
         {% endfor %}
-    </table>
-    <h3>Read Filtered Data</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Pasien</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Tanggal Lahir</th>
-                <th>No. HP</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in filterpasien %}
-            <tr>
-                <td>{{ item.idpasien }}</item></td>
-                <td>{{ item.namapasien }}</item></td>
-                <td>{{ item.jeniskelaminpasien }}</item></td>
-                <td>{{ item.tanggallahir }}</item></td>
-                <td>{{ item.nohppasien }}</item></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h3>Read Specific Data</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>ID Pasien</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Tanggal Lahir</th>
-                <th>No. HP</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{specificpasien.idpasien}}</td>
-                <td>{{specificpasien.namapasien}}</td>
-                <td>{{specificpasien.jeniskelaminpasien}}</td>
-                <td>{{specificpasien.tanggallahir}}</td>
-                <td>{{specificpasien.nohppasien}}</td>
-            </tr>
-        </tbody>
     </table>
 
     <a href="{% url 'createdatapasien' %}">

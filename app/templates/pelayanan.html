@@ -7,24 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Dokter</h1>
+    <h1>Pelayanan</h1>
     <table>
         <tr>
-            <th>ID Dokter</th>
-            <th>Nama</th>
-            <th>Nomor Handphone</th>
+            <th>ID Pelayanan</th>
+            <th>Jenis Pelayanan</th>
+            <th>Harga Pelayanan</th>
             <th>Actions</th>
         </tr>
-        {% for item in alldokterobj%}
+        {% for item in allpelayananobj%}
         <tr>
-            <td>DR0{{ item.iddokter }}</item></td>
-            <td>{{ item.namadokter }}</item></td>
-            <td>{{ item.nohpdokter }}</item></td>
+            <td>PLY0{{ item.idpelayanan }}</item></td>
+            <td>{{ item.jenispelayanan }}</item></td>
+            <td>{{ item.hargapelayanan }}</item></td>
             <td>
-                <a href="{% url 'updatedokter' item.iddokter %}">
+                <a href="{% url 'updatepelayanan' item.idpelayanan %}">
                     <button>Update</button>
                 </a>
-                <a href="{% url 'deletedokter' item.iddokter %}">
+                <a href="{% url 'deletepelayanan' item.idpelayanan %}">
                     <button>Delete</button>
                 </a>
             </td>
@@ -32,7 +32,7 @@
         {% endfor %}
     </table>
 
-    <a href="{% url 'createdatadokter' %}">
+    <a href="{% url 'createdatapelayanan' %}">
         <button>
             CREATE DATA
         </button>

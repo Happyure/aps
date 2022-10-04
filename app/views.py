@@ -85,23 +85,98 @@ def deletedokter(request,id):
     dokterobj.delete()
     return redirect('dokter')
 
-# Pendaftaran Sik error
+# Pendaftaran
 def pendaftaran(request):
-    allpendaftaranobj = models.dokter.objects.all()
+    allpendaftaranobj = models.pendaftaran.objects.all()
+    alldokterobj=models.dokter.objects.all()
+    allpasienobj=models.pasien.objects.all()
 
     return render(request, 'pendaftaran.html',{
         'allpendaftaranobj' : allpendaftaranobj,
+        'alldokterobj' : alldokterobj,
+        'allpasienobj' : allpasienobj,
     })
 
 def createdatapendaftaran(request):
+    alldokterobj=models.dokter.objects.all()
+    allpasienobj=models.pasien.objects.all()
     if request.method == 'GET' :
-        return render(request, 'createdatapendaftaran.html')
+        return render(request, 'createdatapendaftaran.html',{
+        'alldokterobj' : alldokterobj,
+        'allpasienobj':allpasienobj
+        })
+
     else :
+        iddokter = request.POST['iddokter']
+        getiddokter = models.dokter.objects.get(iddokter=iddokter)
+        idpasien = request.POST['idpasien']
+        getidpasien = models.pasien.objects.get(idpasien=idpasien)
         tanggalpendaftaran = request.POST['tanggalpendaftaran']
 
         newpendaftaran = models.pendaftaran(
-            tanggalpendaftaran=tanggalpendaftaran,
+            iddokter = getiddokter,
+            idpasien = getidpasien,
+            tanggalpendaftaran=tanggalpendaftaran
         ).save()
         return redirect('pendaftaran')
 
 # Pelayanan
+def pelayanan(request):
+    allpelayananobj = models.pelayanan.objects.all()
+    filterpelayananobj = models.pelayanan.objects.filter(jenispelayanan = 'Penambalan Gigi')
+
+    return render(request, 'pelayanan.html',{
+        'allpelayananobj' : allpelayananobj,
+        'filterpelayananobj': filterpelayananobj
+    })
+
+def createdatapelayanan(request):
+    if request.method == 'GET' :
+        return render(request, 'createdatapelayanan.html')
+    else :
+        jenispelayanan = request.POST['jenispelayanan']
+        hargapelayanan = request.POST['hargapelayanan']
+
+        newpelayanan = models.pelayanan(
+            jenispelayanan = jenispelayanan,
+            hargapelayanan = hargapelayanan
+        ).save()
+        return redirect('pelayanan')
+
+def updatepelayanan(request,id):
+    pelayananobj=models.pelayanan.objects.get(idpelayanan=id)
+    if request.method=='GET':
+        return render(request,'updatepelayanan.html',{
+            'pelayanan':pelayananobj,
+        })
+    else:
+        pelayananobj.jenispelayanan = request.POST['jenispelayanan']
+        pelayananobj.hargapelayanan = request.POST['hargapelayanan']
+        pelayananobj.save()
+        return redirect('pelayanan')
+
+def deletepelayanan(request,id):
+    pelayananobj=models.pelayanan.objects.get(idpelayanan=id)
+    pelayananobj.delete()
+    return redirect('pelayanan')
+
+# Detail Pelayanan
+def detail(request):
+    alldetailobj = models.detailpelayanan.objects.all()
+
+    return render(request, 'detail.html',{
+        'alldetailobj' : alldetailobj,
+    })
+
+def createdatadetail(request):
+    if request.method == 'GET' :
+        return render(request, 'createdatadetail.html')
+    else :
+        jumlahjenispelayanan = request.POST['jenispelayanan']
+        hargapelayanan = request.POST['hargapelayanan']
+
+        newpelayanan = models.pelayanan(
+            jenisjenispelayanan = jumlahjenispelayanan,
+            hargapelayanan = hargapelayanan
+        ).save()
+        return redirect('pelayanan')

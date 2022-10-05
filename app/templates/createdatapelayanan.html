@@ -8,6 +8,17 @@
 </head>
 <body>
     <h1>Create Data Pelayanan</h1>
+    <a href="{% url 'pelayanan' %}">
+        <button>
+            Back
+        </button>
+    </a>
+    <a href="{% url 'home' %}">
+        <button>
+            Home
+        </button>
+    </a>
+    <br>
     <form action=""method="post">
     {% csrf_token %}
     <table>

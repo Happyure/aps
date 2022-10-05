@@ -2,6 +2,22 @@ from datetime import datetime
 from django.shortcuts import redirect, render
 from . import models
 
+# Home
+def home(request):
+    allpasienobj = models.pasien.objects.all()
+    alldokterobj = models.dokter.objects.all()
+    allpendaftaranobj = models.pendaftaran.objects.all()
+    allpelayananobj = models.pelayanan.objects.all()
+    alldetailpelayananobj = models.detailpelayanan.objects.all()
+
+    return render(request, 'home.html',{
+        'allpasienobj':allpasienobj,
+        'alldokterobj':alldokterobj,
+        'allpendaftaranobj':allpendaftaranobj,
+        'allpelayananobj':allpelayananobj,
+        'alldetailpelayananobj':alldetailpelayananobj
+    })
+
 # Pasien
 def pasien(request) :
     allpasienobj = models.pasien.objects.all()
@@ -161,22 +177,36 @@ def deletepelayanan(request,id):
     return redirect('pelayanan')
 
 # Detail Pelayanan
-def detail(request):
-    alldetailobj = models.detailpelayanan.objects.all()
+def detailpelayanan(request):
+    alldetailpelayananobj = models.detailpelayanan.objects.all()
+    allpelayananobj = models.pelayanan.objects.all()
+    allpendaftaranobj = models.pendaftaran.objects.all()
 
-    return render(request, 'detail.html',{
-        'alldetailobj' : alldetailobj,
+
+    return render(request, 'detailpelayanan.html',{
+        'alldetailpelayananobj' : alldetailpelayananobj,
+        'allpelayananobj' : allpelayananobj,
+        'allpendaftaranobj' : allpendaftaranobj,
     })
 
-def createdatadetail(request):
+def createdatadetailpelayanan(request):
+    allpelayananobj = models.pelayanan.objects.all()
+    allpendaftaranobj = models.pendaftaran.objects.all()
     if request.method == 'GET' :
-        return render(request, 'createdatadetail.html')
+        return render(request, 'createdatadetailpelayanan.html',{
+        'allpelayananobj' : allpelayananobj,
+        'allpendaftaranobj' : allpendaftaranobj
+        })
     else :
-        jumlahjenispelayanan = request.POST['jenispelayanan']
-        hargapelayanan = request.POST['hargapelayanan']
-
-        newpelayanan = models.pelayanan(
-            jenisjenispelayanan = jumlahjenispelayanan,
-            hargapelayanan = hargapelayanan
+        idpelayanan = request.POST['idpelayanan']
+        getidpelayanan = models.pelayanan.objects.get(idpelayanan=idpelayanan)
+        idpendaftaran = request.POST['idpendaftaran']
+        getidpendaftaran = models.pendaftaran.objects.get(idpendaftaran=idpendaftaran)
+        jumlahjenispelayanan = request.POST['jumlahjenispelayanan']
+        
+        newdetailpelayanan = models.detailpelayanan(
+            idpelayanan = getidpelayanan,
+            idpendaftaran = getidpendaftaran,
+            jumlahjenispelayanan = jumlahjenispelayanan
         ).save()
-        return redirect('pelayanan')
+        return redirect('detailpelayanan')

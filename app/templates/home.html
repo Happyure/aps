@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Losik Dental Care</h1>
+    <tr>
+        <th>Pasien</th><br>
+        <td>
+            <a href="{% url 'pasien' %}">
+                <button>
+                    Data Pasien
+                </button>
+            </a>
+            <a href="{% url 'createdatapasien' %}">
+                <button>
+                    Create Data Pasien
+                </button>
+            </a>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <br><th>Dokter</th><br>
+        <td>
+            <a href="{% url 'dokter' %}">
+                <button>
+                    Data Dokter
+                </button>
+            </a>
+            <a href="{% url 'createdatadokter' %}">
+                <button>
+                    Create Data Dokter
+                </button>
+            </a>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <br><th>Pelayanan</th><br>
+        <td>
+            <a href="{% url 'pelayanan' %}">
+                <button>
+                    Data Pelayanan
+                </button>
+            </a>
+            <a href="{% url 'createdatapelayanan' %}">
+                <button>
+                    Create Data Pelayanan
+                </button>
+            </a>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <br><th>Detail Pelayanan</th><br>
+        <td>
+            <a href="{% url 'detailpelayanan' %}">
+                <button>
+                    Data Detail Pelayanan
+                </button>
+            </a>
+            <a href="{% url 'createdatadetailpelayanan' %}">
+                <button>
+                    Create Data Detail Pelayanan
+                </button>
+            </a>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <br><th>Pendaftaran</th><br>
+        <td>
+            <a href="{% url 'pendaftaran' %}">
+                <button>
+                    Data Pendaftaran
+                </button>
+            </a>
+            <a href="{% url 'createdatapendaftaran' %}">
+                <button>
+                    Create Data Pendaftaran
+                </button>
+            </a>
+            <br>
+        </td>
+    </tr>
+</body>
+</html>

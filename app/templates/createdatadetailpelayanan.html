@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Create Data Pendaftaran</h1>
-    <a href="{% url 'pendaftaran' %}">
+    <h1>Create Data Detail Pelayanan</h1>
+    <a href="{% url 'detailpelayanan' %}">
         <button>
             Back
         </button>
@@ -23,28 +23,28 @@
     {% csrf_token %}
     <table>
         <tr>
-            <th>ID Dokter</th>
+            <th>ID Pelayanan</th>
             <td>
-                <select name="iddokter" id="" class="form-control">
-                    {% for item in alldokterobj %}
-                    <option value="{{item.iddokter}}">{{item}}</option>
+                <select name="idpelayanan" id="" class="form-control">
+                    {% for item in allpelayananobj %}
+                    <option value="{{item.idpelayanan}}">{{item}}</option>
                     {% endfor %}
                 </select>
             </td>
         </tr>
         <tr>
-            <th>ID Pasien</th>
+            <th>ID Pendaftaran</th>
             <td>
-                <select name="idpasien" id="" class="form-control">
-                    {% for item in allpasienobj %}
-                    <option value="{{item.idpasien}}">{{item}}</option>
+                <select name="idpendaftaran" id="" class="form-control">
+                    {% for item in allpendaftaranobj %}
+                    <option value="{{item.idpendaftaran}}">{{item}}</option>
                     {% endfor %}
             </td>
         </tr>
         <tr>
-            <th>Tanggal Pendaftaran</th>
+            <th>Jumlah Jenis Layanan</th>
             <td>
-                <input type="date" name="tanggalpendaftaran">
+                <input type="number" name="jumlahjenispelayanan">
             </td>
         </tr>
     </table>

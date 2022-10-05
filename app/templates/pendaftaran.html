@@ -17,14 +17,13 @@
         </tr>
         {% for item in allpendaftaranobj%}
         <tr>
-            <td>{{ item.idpendaftaran }}</item></td>
+            <td>PD{{ item.idpendaftaran }}</item></td>
             <td>{{ item.iddokter }}</item></td>
             <td>{{ item.idpasien }}</item></td>
             <td>{{ item.tanggalpendaftaran }}</td>
         </tr>
         {% endfor %}
     </table>
-
     <a href="{% url 'createdatapendaftaran' %}">
         <button>
             CREATE DATA
@@ -34,7 +33,7 @@
     <br>
     <a href="{% url 'home' %}">
         <button>
-            Back
+            Home
         </button>
     </a>
 </body>

@@ -21,12 +21,10 @@ def home(request):
 # Pasien
 def pasien(request) :
     allpasienobj = models.pasien.objects.all()
-    getpasienobj = models.pasien.objects.get(idpasien = 1)
     filterpasienobj = models.pasien.objects.filter(jeniskelaminpasien = 'Laki-Laki')
 
     return render(request, 'pasien.html',{
         'allpasienobj' : allpasienobj,
-        'getpasienobj' : getpasienobj,
         'filterpasienobj' : filterpasienobj
     })
 

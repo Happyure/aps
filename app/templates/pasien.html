@@ -29,6 +29,10 @@
                     <button>Update</button>
                 </a>
             </td>
+            <td>
+                <a href="{% url 'deletepasien' item.idpasien %}">
+                    <button>Delete</button>
+            </td>
         </tr>
         {% endfor %}
     </table>

@@ -21,6 +21,15 @@
             <td>{{ item.idpelayanan }}</item></td>
             <td>{{ item.idpendaftaran }}</item></td>
             <td>{{ item.jumlahjenispelayanan }}</td>
+            <td>
+                <a href="{% url 'updatedetailpelayanan' item.iddetailpelayanan %}">
+                    <button>Update</button>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'deletedetailpelayanan' item.iddetailpelayanan %}">
+                    <button>Delete</button>
+            </td>
         </tr>
         {% endfor %}
     </table>

@@ -1,4 +1,5 @@
 from datetime import datetime
+from pyexpat import model
 from django.shortcuts import redirect, render
 from . import models
 
@@ -60,6 +61,11 @@ def updatepasien(request,id):
         pasienobj.nohppasien = request.POST['nohppasien']
         pasienobj.save()
         return redirect('pasien')
+
+def deletepasien(request,id):
+    pasienobj=models.pasien.objects.get(idpasien=id)
+    pasienobj.delete()
+    return redirect('pasien')
 
 # Dokter
 def dokter(request):
@@ -133,6 +139,34 @@ def createdatapendaftaran(request):
             tanggalpendaftaran=tanggalpendaftaran
         ).save()
         return redirect('pendaftaran')
+
+def updatependaftaran(request,id):
+    pendaftaranobj = models.pendaftaran.objects.get(idpendaftaran=id)
+    dokterall = models.dokter.objects.all()
+    pasienall = models.pasien.objects.all()
+    tanggal=datetime.strftime(pendaftaranobj.tanggalpendaftaran, '%Y-%m-%d')
+    if request.method=='GET':
+        return render(request,'updatependaftaran.html',{
+            'pendaftaranobj':pendaftaranobj,
+            'dokterall':dokterall,
+            'pasienall':pasienall,
+            'tanggal':tanggal
+        })
+    else:
+        pendaftaranobj.dokter=request.POST['iddokter']
+        dokterbaru=models.dokter.objects.get(iddokter=request.POST['iddokter'])
+        pendaftaranobj.iddokter=dokterbaru
+        pendaftaranobj.pasien=request.POST['idpasien']
+        pasienbaru=models.pasien.objects.get(idpasien=request.POST['idpasien'])
+        pendaftaranobj.idpasien=pasienbaru
+        pendaftaranobj.tanggalpendaftaran=request.POST['tanggalpendaftaran']
+        pendaftaranobj.save()
+        return redirect('pendaftaran')
+
+def deletependaftaran(request,id):
+    pendaftaranobj=models.pendaftaran.objects.get(idpendaftaran=id)
+    pendaftaranobj.delete()
+    return redirect('pendaftaran')
 
 # Pelayanan
 def pelayanan(request):
@@ -208,3 +242,29 @@ def createdatadetailpelayanan(request):
             jumlahjenispelayanan = jumlahjenispelayanan
         ).save()
         return redirect('detailpelayanan')
+    
+def updatedetailpelayanan(request,id):
+    detailpelayananobj = models.detailpelayanan.objects.get(iddetailpelayanan=id)
+    pendaftaranall = models.pendaftaran.objects.all()
+    pelayananall = models.pelayanan.objects.all()
+    if request.method=='GET':
+        return render(request,'updatedetailpelayanan.html',{
+            'detailpelayananobj':detailpelayananobj,
+            'pendaftaranall': pendaftaranall,
+            'pelayananall':pelayananall,
+        })
+    else:
+        detailpelayananobj.pendaftaran=request.POST['idpendafatran']
+        pendaftaranbaru=models.pendaftaran.objects.get(idpendaftaran=request.POST['idpelayanan'])
+        detailpelayananobj.idpendaftaran=pendaftaranbaru
+        detailpelayananobj.pelayanan=request.POST['idpelayanan']
+        pelayananbaru=models.pelayanan.objects.get(idpelayanan=request.POST['idpelayanan'])
+        detailpelayananobj.idpelayanan=pelayananbaru
+        detailpelayananobj.jumlahjenispelayanan = request.POST['jumlahjenispelayanan']
+        detailpelayananobj.save()
+        return redirect('detailpelayanan')
+
+def deletedetailpelayanan(request,id):
+    detailpelayananobj=models.detailpelayanan.objects.get(iddetailpelayanan=id)
+    detailpelayananobj.delete()
+    return redirect('detailpelayanan')

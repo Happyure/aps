@@ -33,7 +33,7 @@
             <tr>
                 <th>Jumlah Jenis Layanan</th>
                 <td>
-                    <input type="number" name="jumlahjenispelayanan" value="{{detailpelayanan.jumlahjenispelayanan}}">
+                    <input type="number" name="jumlahjenispelayanan" value="{{detailpelayananobj.jumlahjenispelayanan}}">
                 </td>
             </tr>
             </table>
@@ -41,7 +41,7 @@
     </form>
     <br>
     <br>
-    <a href="{% url 'pendaftaran' %}">
+    <a href="{% url 'detailpelayanan' %}">
         <button>
             Back
         </button>

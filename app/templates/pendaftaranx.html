@@ -1,0 +1,85 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with LeadMark landing page.">
+    <meta name="author" content="Devcrud">
+    <title>LOSIK Dental care</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="{%static 'assets/vendors/themify-icons/css/themify-icons.css'%}">
+    <!-- Bootstrap + LeadMark main styles -->
+	<link rel="stylesheet" href="{%static 'assets/css/leadmark.css'%}">
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <!-- page Navigation -->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-info shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/imgs/logo.svg" alt="">
+            </a>
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">                     
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'home' %}" >Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'pasienx' %}" >Pasien</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'dokterx' %}" >Dokter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'pelayananx' %}" >Pelayanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'pendaftaranx' %}" class="ml-4 nav-link btn btn-primary btn-sm rounded text-white">Pendaftaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'detailpelayananx' %}">Detail Pelayanan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end of page navigation -->
+
+    <!-- table -->
+    <h1 class="section-secondary-title mt-5">Data Pendaftaran</h1>
+      <table class="table table-striped">
+         <thead>
+            <tr>
+                <th>ID Pendaftaran</th>
+                <th>ID Dokter</th>
+                <th>ID Pasien</th>
+                <th>Tanggal Pendaftaran</th>
+                <th>Actions</th>
+            </tr>
+         </thead>
+         <tbody>
+        {% for item in allpendaftaranobj%}
+        <tr>
+            <td>PD{{ item.idpendaftaran }}</item></td>
+            <td>DR{{ item.iddokter }}</item></td>
+            <td>PSN{{ item.idpasien }}</item></td>
+            <td>{{ item.tanggalpendaftaran }}</td>
+            <td>
+                <a href="{% url 'updatependaftaran' item.idpendaftaran %}">
+                    <button class="btn btn-success">Update</button>
+                </a>
+                <a href="{% url 'deletependaftaran' item.idpendaftaran %}">
+                    <button class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+        <a href="{% url 'createdatapendaftaran' %}">
+            <button class="btn btn-info">CREATE DATA</button>
+        </a>
+         </tbody>
+      </table>
+      <!-- end of table -->

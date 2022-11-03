@@ -19,19 +19,34 @@ def home(request):
         'alldetailpelayananobj':alldetailpelayananobj
     })
 
+def comp(request):
+    allpasienobj = models.pasien.objects.all()
+    alldokterobj = models.dokter.objects.all()
+    allpendaftaranobj = models.pendaftaran.objects.all()
+    allpelayananobj = models.pelayanan.objects.all()
+    alldetailpelayananobj = models.detailpelayanan.objects.all()
+
+    return render(request, 'components.html',{
+        'allpasienobj':allpasienobj,
+        'alldokterobj':alldokterobj,
+        'allpendaftaranobj':allpendaftaranobj,
+        'allpelayananobj':allpelayananobj,
+        'alldetailpelayananobj':alldetailpelayananobj
+    })
+
 # Pasien
 def pasien(request) :
     allpasienobj = models.pasien.objects.all()
     filterpasienobj = models.pasien.objects.filter(jeniskelaminpasien = 'Laki-Laki')
 
-    return render(request, 'pasien.html',{
+    return render(request, 'pasienx.html',{
         'allpasienobj' : allpasienobj,
         'filterpasienobj' : filterpasienobj
     })
 
 def createdatapasien(request):
     if request.method == 'GET' :
-        return render(request, 'createdatapasien.html')
+        return render(request, 'createdatapasienx.html')
     else :
         namapasien = request.POST['namapasien']
         tanggallahir = request.POST['tanggallahir']
@@ -50,7 +65,7 @@ def updatepasien(request,id):
     pasienobj=models.pasien.objects.get(idpasien=id)
     tanggal=datetime.strftime(pasienobj.tanggallahir, '%Y-%m-%d')
     if request.method=='GET':
-        return render(request,'updatepasien.html',{
+        return render(request,'updatepasienx.html',{
             'pasien':pasienobj,
             'tanggallahir':tanggal
         })
@@ -71,13 +86,13 @@ def deletepasien(request,id):
 def dokter(request):
     alldokterobj = models.dokter.objects.all()
 
-    return render(request, 'dokter.html',{
+    return render(request, 'dokterx.html',{
         'alldokterobj' : alldokterobj,
     })
 
 def createdatadokter(request):
     if request.method == 'GET' :
-        return render(request, 'createdatadokter.html')
+        return render(request, 'createdatadokterx.html')
     else :
         namadokter = request.POST['namadokter']
         nohpdokter = request.POST['nohpdokter']
@@ -91,7 +106,7 @@ def createdatadokter(request):
 def updatedokter(request,id):
     dokterobj=models.dokter.objects.get(iddokter=id)
     if request.method=='GET':
-        return render(request,'updatedokter.html',{
+        return render(request,'updatedokterx.html',{
             'dokter':dokterobj,
         })
     else:
@@ -111,7 +126,7 @@ def pendaftaran(request):
     alldokterobj=models.dokter.objects.all()
     allpasienobj=models.pasien.objects.all()
 
-    return render(request, 'pendaftaran.html',{
+    return render(request, 'pendaftaranx.html',{
         'allpendaftaranobj' : allpendaftaranobj,
         'alldokterobj' : alldokterobj,
         'allpasienobj' : allpasienobj,
@@ -121,7 +136,7 @@ def createdatapendaftaran(request):
     alldokterobj=models.dokter.objects.all()
     allpasienobj=models.pasien.objects.all()
     if request.method == 'GET' :
-        return render(request, 'createdatapendaftaran.html',{
+        return render(request, 'createdatapendaftaranx.html',{
         'alldokterobj' : alldokterobj,
         'allpasienobj':allpasienobj
         })
@@ -146,7 +161,7 @@ def updatependaftaran(request,id):
     pasienall = models.pasien.objects.all()
     tanggal=datetime.strftime(pendaftaranobj.tanggalpendaftaran, '%Y-%m-%d')
     if request.method=='GET':
-        return render(request,'updatependaftaran.html',{
+        return render(request,'updatependaftaranx.html',{
             'pendaftaranobj':pendaftaranobj,
             'dokterall':dokterall,
             'pasienall':pasienall,
@@ -173,14 +188,14 @@ def pelayanan(request):
     allpelayananobj = models.pelayanan.objects.all()
     filterpelayananobj = models.pelayanan.objects.filter(jenispelayanan = 'Penambalan Gigi')
 
-    return render(request, 'pelayanan.html',{
+    return render(request, 'pelayananx.html',{
         'allpelayananobj' : allpelayananobj,
         'filterpelayananobj': filterpelayananobj
     })
 
 def createdatapelayanan(request):
     if request.method == 'GET' :
-        return render(request, 'createdatapelayanan.html')
+        return render(request, 'createdatapelayananx.html')
     else :
         jenispelayanan = request.POST['jenispelayanan']
         hargapelayanan = request.POST['hargapelayanan']
@@ -194,7 +209,7 @@ def createdatapelayanan(request):
 def updatepelayanan(request,id):
     pelayananobj=models.pelayanan.objects.get(idpelayanan=id)
     if request.method=='GET':
-        return render(request,'updatepelayanan.html',{
+        return render(request,'updatepelayananx.html',{
             'pelayanan':pelayananobj,
         })
     else:
@@ -215,7 +230,7 @@ def detailpelayanan(request):
     allpendaftaranobj = models.pendaftaran.objects.all()
 
 
-    return render(request, 'detailpelayanan.html',{
+    return render(request, 'detailpelayananx.html',{
         'alldetailpelayananobj' : alldetailpelayananobj,
         'allpelayananobj' : allpelayananobj,
         'allpendaftaranobj' : allpendaftaranobj,
@@ -225,7 +240,7 @@ def createdatadetailpelayanan(request):
     allpelayananobj = models.pelayanan.objects.all()
     allpendaftaranobj = models.pendaftaran.objects.all()
     if request.method == 'GET' :
-        return render(request, 'createdatadetailpelayanan.html',{
+        return render(request, 'createdatadetailpelayananx.html',{
         'allpelayananobj' : allpelayananobj,
         'allpendaftaranobj' : allpendaftaranobj
         })
@@ -248,14 +263,14 @@ def updatedetailpelayanan(request,id):
     pendaftaranall = models.pendaftaran.objects.all()
     pelayananall = models.pelayanan.objects.all()
     if request.method=='GET':
-        return render(request,'updatedetailpelayanan.html',{
+        return render(request,'updatedetailpelayananx.html',{
             'detailpelayananobj':detailpelayananobj,
             'pendaftaranall': pendaftaranall,
             'pelayananall':pelayananall,
         })
     else:
-        detailpelayananobj.pendaftaran=request.POST['idpendafatran']
-        pendaftaranbaru=models.pendaftaran.objects.get(idpendaftaran=request.POST['idpelayanan'])
+        detailpelayananobj.pendaftaran=request.POST['idpendaftaran']
+        pendaftaranbaru=models.pendaftaran.objects.get(idpendaftaran=request.POST['idpendaftaran'])
         detailpelayananobj.idpendaftaran=pendaftaranbaru
         detailpelayananobj.pelayanan=request.POST['idpelayanan']
         pelayananbaru=models.pelayanan.objects.get(idpelayanan=request.POST['idpelayanan'])

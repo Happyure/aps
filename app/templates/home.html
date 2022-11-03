@@ -1,67 +1,81 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with LeadMark landing page.">
+    <meta name="author" content="Devcrud">
+    <title>LOSIK Dental Care</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="{%static 'assets/vendors/themify-icons/css/themify-icons.css'%}">
+    <!-- Bootstrap + LeadMark main styles -->
+	<link rel="stylesheet" href="{%static 'assets/css/leadmark.css'%}">
 </head>
-<body>
-    <h1>Losik Dental Care</h1>
-    <tr>
-        <th>Pasien</th><br>
-        <td>
-            <a href="{% url 'pasien' %}">
-                <button>
-                    Data Pasien
-                </button>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <!-- page Navigation -->
+    <nav class="navbar custom-navbar navbar-expand-md navbar-light fixed-top" data-spy="affix" data-offset-top="10">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/imgs/logo.svg" alt="">
             </a>
-            <br>
-        </td>
-    </tr>
-    <tr>
-        <br><th>Dokter</th><br>
-        <td>
-            <a href="{% url 'dokter' %}">
-                <button>
-                    Data Dokter
-                </button>
-            </a>
-            <br>
-        </td>
-    </tr>
-    <tr>
-        <br><th>Pelayanan</th><br>
-        <td>
-            <a href="{% url 'pelayanan' %}">
-                <button>
-                    Data Pelayanan
-                </button>
-            </a>
-            <br>
-        </td>
-    </tr>
-    <tr>
-        <br><th>Detail Pelayanan</th><br>
-        <td>
-            <a href="{% url 'detailpelayanan' %}">
-                <button>
-                    Data Detail Pelayanan
-                </button>
-            </a>
-            <br>
-        </td>
-    </tr>
-    <tr>
-        <br><th>Pendaftaran</th><br>
-        <td>
-            <a href="{% url 'pendaftaran' %}">
-                <button>
-                    Data Pendaftaran
-                </button>
-            </a>
-            <br>
-        </td>
-    </tr>
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="ml-4 nav-link btn btn-primary btn-sm rounded">Home</a>
+                    </li>                     
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pasienx' %}" >Pasien</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dokterx' %}">Dokter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pelayananx' %}">Pelayanan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pendaftaranx' %}">Pendaftaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'detailpelayananx' %}">Detail Pelayanan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Of Second Navigation -->
+
+    <!-- Page Header -->
+    <header class="header" style="background-image: url('https://img.freepik.com/free-photo/empty-stomatology-orthodontist-bright-office-room-with-nobody-it_482257-15349.jpg?w=2000')">
+        <div class="overlay">
+            <h1 class="subtitle">WELCOME</h1>
+            <h1 class="title">LOSIK Dental Care</h1>  
+        </div>  
+        <div class="shape">
+            <svg viewBox="0 0 1500 200">
+                <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
+            </svg>
+        </div>  
+        <div class="mouse-icon"><div class="wheel"></div></div>
+    </header>
+    <!-- End Of Page Header -->
+
+	<!-- core  -->
+    <script src="{% static 'assets/vendors/jquery/jquery-3.4.1.js'%}"></script>
+    <script src="{% static 'assets/vendors/bootstrap/bootstrap.bundle.js'%}"></script>
+
+    <!-- bootstrap 3 affix -->
+	<script src="{% static 'assets/vendors/bootstrap/bootstrap.affix.js'%}"></script>
+
+    <!-- Isotope -->
+    <script src="{% static 'assets/vendors/isotope/isotope.pkgd.js'%}"></script>
+
+    <!-- LeadMark js -->
+    <script src="{% static 'assets/js/leadmark.js'%}"></script>
+
 </body>
 </html>

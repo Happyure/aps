@@ -3,6 +3,7 @@ from.import views
 
 urlpatterns = [
     path('home', views.home, name='home'),
+    path('components', views.comp, name='components'),
 
     path('pasien', views.pasien, name='pasien'),
     path('createdatapasien', views.createdatapasien, name='createdatapasien'),
@@ -28,4 +29,16 @@ urlpatterns = [
     path('createdatadetailpelayanan', views.createdatadetailpelayanan, name='createdatadetailpelayanan'),
     path('updatedetailpelayanan/<str:id>', views.updatedetailpelayanan, name='updatedetailpelayanan'),
     path('deletedetailpelayanan/<str:id>', views.deletedetailpelayanan, name='deletedetailpelayanan'),
+
+    path('pasienx', views.pasien, name='pasienx'),
+    path('updatepasien/<str:id>', views.updatepasien, name='updatepasienx'),
+    path('createdatapasienx', views.createdatapasien, name='createdatapasienx'),
+
+    path('dokterx', views.dokter, name='dokterx'),
+    path('createdatadokterx', views.createdatadokter, name='createdatadokterx'),
+    path('updatedokter/<str:id>', views.updatedokter, name='updatedokterx'),
+
+    path('pelayananx', views.pelayanan, name='pelayananx'),
+    path('pendaftaranx', views.pendaftaran, name='pendaftaranx'),
+    path('detailpelayananx', views.detailpelayanan, name='detailpelayananx'),
 ]

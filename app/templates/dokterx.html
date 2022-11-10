@@ -54,31 +54,61 @@
       <table class="table table-striped">
          <thead>
             <tr>
-                <th>ID Dokter</th>
-                <th>Nama</th>
-                <th>Nomor Handphone</th>
-                <th>Actions</th>
+                <th>
+                    <center>
+                        ID Dokter
+                    </center>
+                </th>
+                <th>
+                    <center>
+                        Nama
+                    </center>
+                </th>
+                <th>
+                    <center>
+                        Nomor Handphone
+                    </center>
+                </th>
+                <th>
+                    <center>
+                        Actions
+                    </center>
+                </th>
             </tr>
          </thead>
          <tbody>
         {% for item in alldokterobj%}
         <tr>
-            <td>DR{{ item.iddokter }}</item></td>
-            <td>{{ item.namadokter }}</item></td>
-            <td>{{ item.nohpdokter }}</item></td>
             <td>
-                <a href="{% url 'updatedokter' item.iddokter %}">
-                    <button class="btn btn-success">Update</button>
-                </a>
-                <a href="{% url 'deletedokter' item.iddokter %}">
-                    <button class="btn btn-danger">Delete</button>
-                </a>
+                <center>                    
+                    DR{{ item.iddokter }}
+                </center>
+            </td>
+            <td>
+                <center>                    
+                    {{ item.namadokter }}
+                </center>
+            </td>
+            <td>
+                <center>                    
+                    {{ item.nohpdokter }}
+                </center>
+            </td>
+            <td>
+                <center>                
+                    <a href="{% url 'updatedokterx' item.iddokter %}">
+                        <button class="btn btn-success">Update</button>
+                    </a>
+                    <a href="{% url 'deletedokter' item.iddokter %}">
+                        <button class="btn btn-danger">Delete</button>
+                    </a>
+                </center>
             </td>
         </tr>
         {% endfor %}
-        <a href="{% url 'createdatadokterx' %}">
-            <button class="btn btn-info">CREATE DATA</button>
-        </a>
          </tbody>
       </table>
+    <a href="{% url 'createdatadokterx' %}">
+        <button class="btn btn-info">TAMBAH DATA DOKTER</button>
+    </a>
       <!-- end of table -->

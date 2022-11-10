@@ -51,12 +51,15 @@
 
     <!-- input -->
     <h3>Create Data Pendaftaran</h3>
+    <!-- <a href="pendaftaranx" class="mt-3">
+        <button class="btn btn-danger">BACK</button>
+    </a> -->
     <hr>
         <form action="" method="post">
             {% csrf_token %}
-            <div class="row mt-5">
+            <div class="mt-3">
                 <div class="col-md-6">
-                    <h6>ID Dokter</h6>     
+                    <h6>Dokter</h6>     
                     <div class="form-group">
                         <select name="iddokter" id="" class="form-control">
                             {% for item in alldokterobj %}
@@ -64,7 +67,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <h6>ID Pasien</h6>     
+                    <h6>Pasien</h6>     
                     <div class="form-group">
                         <select name="idpasien" id="" class="form-control">
                             {% for item in allpasienobj %}
@@ -74,8 +77,16 @@
                     </div>
                     <h6>Tanggal Pendaftaran</h6> 
                     <div class="form-group">
-                        <input type="date" class="form-control" placeholder="Date" name="tanggallahir" value="{{tanggal}}">
+                        <input type="date" class="form-control" placeholder="Date" name="tanggalpendaftaran" value="{{tanggalpendaftaran}}">
                     </div>
+                    <!-- <h6>Jenis Pelayanan</h6>
+                    <div class="form-group">
+                        <select name="idpelayanan" id="" class="form-control">
+                            {% for item in allpelayananobj %}
+                            <option value="{{item.idpelayanan}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                    </div> -->
                     <button type="submit" class="btn btn-success">Create Data</button>
                 </div>
             </div>

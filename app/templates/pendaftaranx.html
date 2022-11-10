@@ -44,6 +44,7 @@
                         <a class="nav-link text-white" href="{% url 'detailpelayananx' %}">Detail Pelayanan</a>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -54,32 +55,86 @@
       <table class="table table-striped">
          <thead>
             <tr>
-                <th>ID Pendaftaran</th>
-                <th>ID Dokter</th>
-                <th>ID Pasien</th>
-                <th>Tanggal Pendaftaran</th>
-                <th>Actions</th>
+                <th>
+                    <center>
+                    ID Pendaftaran
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Dokter
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Pasien
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Tanggal Pendaftaran
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Actions
+                    </center>
+                </th>
             </tr>
          </thead>
          <tbody>
-        {% for item in allpendaftaranobj%}
+        {% for item in pendaftaran%}
         <tr>
-            <td>PD{{ item.idpendaftaran }}</item></td>
-            <td>DR{{ item.iddokter }}</item></td>
-            <td>PSN{{ item.idpasien }}</item></td>
-            <td>{{ item.tanggalpendaftaran }}</td>
             <td>
-                <a href="{% url 'updatependaftaran' item.idpendaftaran %}">
+                <center>
+                PD{{ item.0.idpendaftaran }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.0.iddokter }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.0.idpasien }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.0.tanggalpendaftaran }}
+                </center>
+            </td>
+            <td>
+                <center>
+                <!-- {{ item.0.idpelayanan }} -->
+                {% for x in item.1 %}
+                <p>
+                {{x.idpelayanan}}
+                </p>
+                {% endfor %}
+                </center>
+            </td>
+            <td>
+                <center>
+                <a href="{% url 'updatependaftaranx' item.0.idpendaftaran %}">
                     <button class="btn btn-success">Update</button>
                 </a>
-                <a href="{% url 'deletependaftaran' item.idpendaftaran %}">
+                <a href="{% url 'deletependaftaran' item.0.idpendaftaran %}">
                     <button class="btn btn-danger">Delete</button>
+                </a>
+                </center>
             </td>
         </tr>
         {% endfor %}
-        <a href="{% url 'createdatapendaftaran' %}">
-            <button class="btn btn-info">CREATE DATA</button>
-        </a>
          </tbody>
-      </table>
+    </table>
+    <a href="{% url 'createdatapendaftaranx' %}">
+        <button class="btn btn-info">TAMBAH DATA PENDAFTARAN</button>
+    </a>
       <!-- end of table -->

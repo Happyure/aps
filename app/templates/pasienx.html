@@ -54,35 +54,82 @@
       <table class="table table-striped">
          <thead>
             <tr>
-                <th>ID Pasien</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Tanggal Lahir</th>
-                <th>Nomor Handphone</th>
-                <th>Actions</th>
+                <th>
+                    <center>
+                    ID Pasien
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Nama
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Jenis Kelamin
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Tanggal Lahir
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Nomor Handphone
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Actions
+                    </center>
+                </th>
             </tr>
          </thead>
          <tbody>
         {% for item in allpasienobj%}
         <tr>
-            <td>PSN{{ item.idpasien }}</item></td>
-            <td>{{ item.namapasien }}</item></td>
-            <td>{{ item.jeniskelaminpasien }}</item></td>
-            <td>{{ item.tanggallahir }}</item></td>
-            <td>{{ item.nohppasien }}</item></td>
             <td>
-                <a href="{% url 'updatepasien' item.idpasien %}">
+                <center>
+                PSN{{ item.idpasien }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.namapasien }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.jeniskelaminpasien }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.tanggallahir }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.nohppasien }}
+                </center>
+            </td>
+            <td>
+                <center>
+                <a href="{% url 'updatepasienx' item.idpasien %}">
                     <button class="btn btn-success">Update</button>
                 </a>
                 <a href="{% url 'deletepasien' item.idpasien %}">
                     <button class="btn btn-danger">Delete</button>
+                </a>
+                </center>
             </td>
         </tr>
         {% endfor %}
-        <a href="{% url 'createdatapasienx' %}">
-            <button class="btn btn-info">CREATE DATA</button>
-        </a>
-         </tbody>
+        </tbody>
       </table>
       <!-- end of table -->
+    <a href="{% url 'createdatapasienx' %}">
+        <button class="btn btn-info">TAMBAH DATA PASIEN</button>
+    </a>
 </body>

@@ -54,31 +54,61 @@
       <table class="table table-striped">
          <thead>
             <tr>
-                <th>ID Pelayanan</th>
-                <th>Jenis Pelayanan</th>
-                <th>Harga Pelayanan</th>
-                <th>Actions</th>
+                <th>
+                    <center>
+                    ID Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Jenis Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Harga Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Actions
+                    </center>
+                </th>
             </tr>
          </thead>
          <tbody>
         {% for item in allpelayananobj%}
         <tr>
-            <td>PLY{{ item.idpelayanan }}</item></td>
-            <td>{{ item.jenispelayanan }}</item></td>
-            <td>{{ item.hargapelayanan }}</item></td>
             <td>
-                <a href="{% url 'updatepelayanan' item.idpelayanan %}">
+                <center>
+                PLY{{ item.idpelayanan }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.jenispelayanan }}
+                </center>
+            </td>
+            <td>
+                <center>
+                {{ item.hargapelayanan }}
+                </center>
+            </td>
+            <td>
+                <center>
+                <a href="{% url 'updatepelayananx' item.idpelayanan %}">
                     <button class="btn btn-success">Update</button>
                 </a>
                 <a href="{% url 'deletepelayanan' item.idpelayanan %}">
                     <button class="btn btn-danger">Delete</button>
                 </a>
+                </center>
             </td>
         </tr>
         {% endfor %}
-        <a href="{% url 'createdatapelayanan' %}">
-            <button class="btn btn-info">CREATE DATA</button>
-        </a>
          </tbody>
       </table>
+    <a href="{% url 'createdatapelayananx' %}">
+        <button class="btn btn-info">TAMBAH DATA PELAYANAN</button>
+    </a>
       <!-- end of table -->

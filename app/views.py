@@ -122,23 +122,45 @@ def deletedokter(request,id):
 
 # Pendaftaran
 def pendaftaran(request):
+    data = []
     allpendaftaranobj = models.pendaftaran.objects.all()
     alldokterobj=models.dokter.objects.all()
     allpasienobj=models.pasien.objects.all()
-
-    return render(request, 'pendaftaranx.html',{
+    allpelayananobj=models.pelayanan.objects.all()
+    for item in allpendaftaranobj :
+        dummy = []
+        idpendaftaran = item.idpendaftaran
+        specificdetail = models.detailpelayanan.objects.filter (idpendaftaran = idpendaftaran)
+        dummy.append(item)
+        dummy.append(specificdetail)
+        data.append(dummy)
+    return render (request, 'pendaftaranx.html', {
+        'pendaftaran' : data,
         'allpendaftaranobj' : allpendaftaranobj,
         'alldokterobj' : alldokterobj,
         'allpasienobj' : allpasienobj,
-    })
+        'allpelayananobj':allpelayananobj,
+        })
+
+    # allpendaftaranobj = models.pendaftaran.objects.all()
+    # alldokterobj=models.dokter.objects.all()
+    # allpasienobj=models.pasien.objects.all()
+
+    # return render(request, 'pendaftaranx.html',{
+    #     'allpendaftaranobj' : allpendaftaranobj,
+    #     'alldokterobj' : alldokterobj,
+    #     'allpasienobj' : allpasienobj,
+    # })
 
 def createdatapendaftaran(request):
     alldokterobj=models.dokter.objects.all()
     allpasienobj=models.pasien.objects.all()
+    allpelayananobj = models.pelayanan.objects.all()
     if request.method == 'GET' :
         return render(request, 'createdatapendaftaranx.html',{
         'alldokterobj' : alldokterobj,
-        'allpasienobj':allpasienobj
+        'allpasienobj':allpasienobj,
+        'allpelayananobj': allpelayananobj,
         })
 
     else :
@@ -147,11 +169,14 @@ def createdatapendaftaran(request):
         idpasien = request.POST['idpasien']
         getidpasien = models.pasien.objects.get(idpasien=idpasien)
         tanggalpendaftaran = request.POST['tanggalpendaftaran']
+        idpelayanan = request.POST['idpelayanan']
+        getidpelayanan = models.pelayanan.objects.get(idpelayanan = idpelayanan)
 
         newpendaftaran = models.pendaftaran(
             iddokter = getiddokter,
             idpasien = getidpasien,
-            tanggalpendaftaran=tanggalpendaftaran
+            tanggalpendaftaran=tanggalpendaftaran,
+            idpelayanan = getidpelayanan,
         ).save()
         return redirect('pendaftaran')
 
@@ -160,12 +185,14 @@ def updatependaftaran(request,id):
     dokterall = models.dokter.objects.all()
     pasienall = models.pasien.objects.all()
     tanggal=datetime.strftime(pendaftaranobj.tanggalpendaftaran, '%Y-%m-%d')
+    pelayananall = models.pelayanan.objects.all()
     if request.method=='GET':
         return render(request,'updatependaftaranx.html',{
             'pendaftaranobj':pendaftaranobj,
             'dokterall':dokterall,
             'pasienall':pasienall,
-            'tanggal':tanggal
+            'tanggal':tanggal,
+            'pelayananall':pelayananall,
         })
     else:
         pendaftaranobj.dokter=request.POST['iddokter']
@@ -175,6 +202,9 @@ def updatependaftaran(request,id):
         pasienbaru=models.pasien.objects.get(idpasien=request.POST['idpasien'])
         pendaftaranobj.idpasien=pasienbaru
         pendaftaranobj.tanggalpendaftaran=request.POST['tanggalpendaftaran']
+        # pendaftaranobj.pelayanan=request.POST['idpelayanan']
+        # pelayananbaru=models.pelayanan.objects.get(idpelayanan=request.POST['idpelayanan'])
+        # pendaftaranobj.idpelayanan=pelayananbaru
         pendaftaranobj.save()
         return redirect('pendaftaran')
 

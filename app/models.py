@@ -7,7 +7,7 @@ class dokter(models.Model):
     nohpdokter = models.IntegerField()
 
     def __str__(self):
-        return str(self.iddokter)
+        return str(self.namadokter)
 
 class pasien(models.Model):
     idpasien = models.AutoField(primary_key=True)
@@ -17,7 +17,7 @@ class pasien(models.Model):
     nohppasien = models.IntegerField()
 
     def __str__(self):
-        return str(self.idpasien)
+        return str(self.namapasien)
 
 class pendaftaran(models.Model):
     idpendaftaran = models.AutoField(primary_key=True)
@@ -34,7 +34,7 @@ class pelayanan(models.Model):
     hargapelayanan = models.IntegerField()
 
     def __str__(self):
-        return str(self.idpelayanan)
+        return str(self.jenispelayanan)
 
 class detailpelayanan(models.Model):
     iddetailpelayanan = models.AutoField(primary_key=True)

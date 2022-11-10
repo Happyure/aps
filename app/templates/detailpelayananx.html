@@ -54,30 +54,69 @@
       <table class="table table-striped">
          <thead>
             <tr>
-                <th>ID Detail Pelayanan</th>
-                <th>ID Pelayanan</th>
-                <th>ID Pendaftaran</th>
-                <th>Jumlah Pelayanan</th>
-                <th>Actions</th>
+                <th>
+                    <center>
+                    ID Detail Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    ID Pendaftaran
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Jumlah Pelayanan
+                    </center>
+                </th>
+                <th>
+                    <center>
+                    Actions
+                    </center>
+                </th>
             </tr>
             {% for item in alldetailpelayananobj%}
             <tr>
-                <td>DP{{ item.iddetailpelayanan }}</item></td>
-                <td>PLY{{ item.idpelayanan }}</item></td>
-                <td>PD{{ item.idpendaftaran }}</item></td>
-                <td>{{ item.jumlahjenispelayanan }}</td>
                 <td>
-                    <a href="{% url 'updatedetailpelayanan' item.iddetailpelayanan %}">
+                    <center>
+                    DP{{ item.iddetailpelayanan }}
+                    </center>
+                </td>
+                <td>
+                    <center>
+                    {{ item.idpelayanan }}
+                    </center>
+                </td>
+                <td>
+                    <center>
+                    PD{{ item.idpendaftaran }}
+                    </center>
+                </td>
+                <td>
+                    <center>
+                    {{ item.jumlahjenispelayanan }}
+                    </center>
+                </td>
+                <td>
+                    <center>
+                    <a href="{% url 'updatedetailpelayananx' item.iddetailpelayanan %}">
                         <button class="btn btn-success">Update</button>
                     </a>
                     <a href="{% url 'deletedetailpelayanan' item.iddetailpelayanan %}">
                         <button class="btn btn-danger">Delete</button>
+                    </a>
+                    </center>
                 </td>
             </tr>
             {% endfor %}
-            <a href="{% url 'createdatadetailpelayanan' %}">
-                <button class="btn btn-info">CREATE DATA</button>
-            </a>
              </tbody>
       </table>
+    <a href="{% url 'createdatadetailpelayananx' %}">
+        <button class="btn btn-info">TAMBAH DATA DETAIL PELAYANAN</button>
+    </a>
       <!-- end of table -->

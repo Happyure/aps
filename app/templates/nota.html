@@ -43,21 +43,14 @@
                 <td>{{item.idpelayanan.hargapelayanan}}</td>
                 <td>{{item.jumlahjenispelayanan}}</td>
                 <td>
-                    {% for total in item.0 %}
-                    <p>
-                        {{total.biaya}}
-                    </p>
+                    {% for item in biaya %}
+                    <p>{{item}}</p>
                     {%endfor%}
                 </td>
             </tr>
             {% endfor %}
-            {% for i in biaya %}
             <tr>
-                <td>{{i}}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <th>Grand Total</th>
+                <th>Harga Total</th>
                 <th>: {{totallayanan1}}</th>
             </tr>
         </tbody>

@@ -264,7 +264,6 @@ def detailpelayanan(request):
     allpelayananobj = models.pelayanan.objects.all()
     allpendaftaranobj = models.pendaftaran.objects.all()
 
-
     return render(request, 'detailpelayananx.html',{
         'alldetailpelayananobj' : alldetailpelayananobj,
         'allpelayananobj' : allpelayananobj,
@@ -328,22 +327,16 @@ def nota (request,id) :
         pelayananobj=models.pelayanan.objects.get(idpelayanan=i.idpelayanan.idpelayanan)
         biaya.append(pelayananobj.hargapelayanan*i.jumlahjenispelayanan)
     totallayanan1=sum(biaya)
-    # totals=[]
-    # detailobj=models.detailpelayanan.objects.get(iddetailpelayanan=id)
-    # total=int(pelayananobj.hargapelayanan)*int(detailobj.jumlahjenispelayanan)
-    # grandtotal =Sum('total')
 
     response = HttpResponse(content_type='application/pdf;')
-    response['Content-Disposition'] = 'inline; filename=list_of_students.pdf'
+    response['Content-Disposition'] = 'inline; filename=Nota_LOSIK_Dental_Care.pdf'
     response['Content-Transfer-Encoding'] = 'binary'
     html_string = render_to_string(
         'nota.html',{
             'pendaftaran' : pendaftaranobj,
             'detailpelayanan' : detailpelayananobj,
             'totallayanan1' : totallayanan1,
-            # 'detailobj' : detailobj,
-            # 'total' : total,
-            # 'grandtotal' : grandtotal,
+            'biaya' : biaya,
             }
     )
     html = HTML(string=html_string)
@@ -384,6 +377,7 @@ def laporan(request):
         return render(request,'laporan.html')
     elif request.method == "POST":
         detailobj =[]
+        list_harga=[]
         # Get selected penyewaan object
         mulai = request.POST['mulai']
         akhir = request.POST['akhir']
@@ -391,30 +385,25 @@ def laporan(request):
         for item in pendaftaran:
             data=[]
             # Get selected detailcharge by idpelanggan
-            detailpelayanan = models.detailpelayanan.objects.filter(idpasien = item.idpasien)
-            data.append(item)
+            pendaftaranobj=models.pendaftaran.objects.filter(idpendaftaran=item.idpendaftaran)
+            detailpelayanan = models.detailpelayanan.objects.filter(idpendaftaran = item.idpendaftaran)
+            data.append(pendaftaranobj)
             data.append(detailpelayanan)
-            totalcharge=detailpelayanan.aggregate(Sum('hargapelayanan'))
-            biaya = item.hargapelayanan
-            # if totalcharge['hargapelayanan__sum'] == None:
-            #     total = biaya
-            # else:
-            #     total = totalcharge['hargacharge__sum']+biayasewa
-            # data.append(total)
-            detailobj.append(data)
-            # total += total
-    
-        # pemasukan = []
-        # for harga in detailobj:
-        #     pemasukan.append(harga[2])
-        # totalpemasukan = sum(pemasukan)
+            daftar=[]
+            for d in detailpelayanan:
+                th=d.idpelayanan.hargapelayanan*d.jumlahjenispelayanan
+                daftar.append(th)
+                list_harga.append(th)
+                data.append(daftar)
+                detailobj.append(data)
+            totalharga=sum(list_harga)
 
-        return render(request,'laporan.html',{
-            #'detailobjek' :detailobj,
+        return render(request,'detaillaporan.html',{
+            'detailobjek' :detailobj,
             'tanggalmulai' : mulai,
             'tanggalakhir' : akhir,
-            #'pemasukan' : totalpemasukan
-
+            'listharga' : list_harga,
+            'totalharga': totalharga
         })
 
 def laporanpdf(request,mulai,akhir):

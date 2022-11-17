@@ -29,13 +29,13 @@
                         <a class="nav-link text-white" href="{% url 'home' %}" >Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'pasienx' %}" >Pasien</a>
+                        <a href="{% url 'pasienx' %}" class="nav-link text-white">Pasien</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'dokterx' %}" >Dokter</a>
+                        <a class="nav-link text-white" href="{% url 'dokterx' %}">Dokter</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'pelayananx' %}" class="ml-4 nav-link btn btn-primary btn-sm rounded text-white">Pelayanan</a>
+                        <a class="nav-link text-white" href="{% url 'pelayananx' %}">Pelayanan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'pendaftaranx' %}">Pendaftaran</a>
@@ -51,67 +51,60 @@
         </div>
     </nav>
     <!-- end of page navigation -->
-
-    <!-- table -->
-    <h1 class="section-secondary-title mt-5">Data Pelayanan</h1>
-      <table class="table table-striped">
-         <thead>
+    <h1 class="section-secondary-title mt-5">Laporan</h1>
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <th>
-                    <center>
-                    ID Pelayanan
-                    </center>
-                </th>
-                <th>
-                    <center>
-                    Jenis Pelayanan
-                    </center>
-                </th>
-                <th>
-                    <center>
-                    Harga Pelayanan
-                    </center>
-                </th>
-                <th>
-                    <center>
-                    Actions
-                    </center>
-                </th>
+                <th>ID Pendaftaran</th>
+                <th>Nama Dokter</th>
+                <th>Nama Pasien</th>
+                <th>Tanggal Pendaftaran</th>
+                <th>Jenis Pelayanan</th>
+                <th>Harga Pelayanan</th>
+                <th>Jumlah Pelayanan</th>
+                <th>Total Harga</th>
             </tr>
-         </thead>
-         <tbody>
-        {% for item in allpelayananobj%}
-        <tr>
-            <td>
-                <center>
-                PLY{{ item.idpelayanan }}
-                </center>
-            </td>
-            <td>
-                <center>
-                {{ item.jenispelayanan }}
-                </center>
-            </td>
-            <td>
-                <center>
-                {{ item.hargapelayanan }}
-                </center>
-            </td>
-            <td>
-                <center>
-                <a href="{% url 'updatepelayananx' item.idpelayanan %}">
-                    <button class="btn btn-success">Update</button>
-                </a>
-                <a href="{% url 'deletepelayanan' item.idpelayanan %}">
-                    <button class="btn btn-danger">Delete</button>
-                </a>
-                </center>
-            </td>
-        </tr>
-        {% endfor %}
-         </tbody>
-      </table>
-    <a href="{% url 'createdatapelayananx' %}">
-        <button class="btn btn-info">TAMBAH DATA PELAYANAN</button>
-    </a>
-      <!-- end of table -->
+        </thead>
+        <tbody>
+                                                
+            {% for item in detailobjek %}
+            <tr>
+                <td>PD{{item.0.0.idpendaftaran}}</td>
+                <td>{{item.0.0.iddokter}}</td>
+                <td  >{{item.0.0.idpasien}}</td>
+                <td   >{{item.0.0.tanggalpendaftaran}}</td>
+                <!-- <td> -->
+                {% if item.1|length > 0 %}
+                <td>
+                    {% for detail in item.1 %}
+                        <h5>{{ detail.idpelayanan.jenispelayanan}}</h5>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for detail in item.1 %}
+                        <h5>{{detail.idpelayanan.hargapelayanan}}</h5>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for detail in item.1 %}
+                        <h5>{{detail.jumlahjenispelayanan}}</h5>
+                    {%endfor%}
+                </td>
+                <td>
+                    {% for detail in item.2 %}
+                        <h5>{{detail}}</h5>
+                    {% endfor %}
+                </td>
+                {% elif item.1|length == 0 %}
+                <td >
+                    <h5>-</h5>
+                </td>
+                <td  >
+                    <h5>-</h5>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+     </table>
+     <h4>Total Pemasukan : {{ totalharga }} </h3>

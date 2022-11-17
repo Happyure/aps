@@ -29,7 +29,7 @@
                         <a class="nav-link text-white" href="{% url 'home' %}" >Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'pasienx' %}" class="ml-4 nav-link btn btn-primary btn-sm rounded text-white">Pasien</a>
+                        <a href="{% url 'pasienx' %}" class="nav-link text-white">Pasien</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'dokterx' %}">Dokter</a>
@@ -43,15 +43,18 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'detailpelayananx' %}">Detail Pelayanan</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="ml-4 nav-link btn btn-primary btn-sm rounded text-white" href="{% url 'laporan' %}">Laporan</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- end of page navigation -->
-    <h1>Laporan</h1>
-    <form method="post" id="">
+    <h1 class="section-secondary-title mt-5">Laporan</h1>
+    <form method="post" id="addasisten">
         {% csrf_token %}
-       </select>
+    </select>
             <div class="form-group">
               <label for="mulai">Mulai</label>
               <input required type="date" class="form-control" id="mulai"  name="mulai">
@@ -60,6 +63,5 @@
               <label for="akhir">Akhir</label>
               <input required type="date" class="form-control" id="akhir" name="akhir">
             </div>
-            
         <button type="submit" class="btn btn-primary" >Generate laporan</button>
     </form>

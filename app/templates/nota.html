@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page{
+            size: A5;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Nota Pendaftaran</h1>
+    <table>
+        <tbody>
+            <tr>
+                <td>Nama Dokter</td>
+                <td>: {{ pendaftaran.iddokter.namadokter }}</td>
+            </tr>
+            <tr>
+                <td>Nama Pasien</td>
+                <td>: {{ pendaftaran.idpasien.namapasien}}</td>
+            </tr>
+            <tr>
+                <td>Jenis Kelamin</td>
+                <td>: {{ pendaftaran.idpasien.jeniskelaminpasien}}</td>
+            </tr>
+            <tr>
+                <td>Tanggal Pendaftaran</td>
+                <td>: {{ pendaftaran.tanggalpendaftaran}}</td>
+            </tr>
+            <tr>
+                <th>Jenis Layanan</th>
+                <th>Harga Layanan</th>
+                <th>Jumlah</th>
+                <th>Total</th>
+            </tr>
+            {% for item in detailpelayanan %}
+            <tr>
+                <td>{{item.idpelayanan.jenispelayanan}}</td>
+                <td>{{item.idpelayanan.hargapelayanan}}</td>
+                <td>{{item.jumlahjenispelayanan}}</td>
+                <td>
+                    {% for total in item.0 %}
+                    <p>
+                        {{total.biaya}}
+                    </p>
+                    {%endfor%}
+                </td>
+            </tr>
+            {% endfor %}
+            {% for i in biaya %}
+            <tr>
+                <td>{{i}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th>Grand Total</th>
+                <th>: {{totallayanan1}}</th>
+            </tr>
+        </tbody>
+        </table>
+</body>
+</html>

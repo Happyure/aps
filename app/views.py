@@ -2,6 +2,11 @@ from datetime import datetime
 from pyexpat import model
 from django.shortcuts import redirect, render
 from . import models
+from django.db.models import Sum
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
 
 # Home
 def home(request):
@@ -155,12 +160,12 @@ def pendaftaran(request):
 def createdatapendaftaran(request):
     alldokterobj=models.dokter.objects.all()
     allpasienobj=models.pasien.objects.all()
-    allpelayananobj = models.pelayanan.objects.all()
+    # allpelayananobj = models.pelayanan.objects.all()
     if request.method == 'GET' :
         return render(request, 'createdatapendaftaranx.html',{
         'alldokterobj' : alldokterobj,
         'allpasienobj':allpasienobj,
-        'allpelayananobj': allpelayananobj,
+        # 'allpelayananobj': allpelayananobj,
         })
 
     else :
@@ -169,14 +174,14 @@ def createdatapendaftaran(request):
         idpasien = request.POST['idpasien']
         getidpasien = models.pasien.objects.get(idpasien=idpasien)
         tanggalpendaftaran = request.POST['tanggalpendaftaran']
-        idpelayanan = request.POST['idpelayanan']
-        getidpelayanan = models.pelayanan.objects.get(idpelayanan = idpelayanan)
+        # idpelayanan = request.POST['idpelayanan']
+        # getidpelayanan = models.pelayanan.objects.get(idpelayanan = idpelayanan)
 
         newpendaftaran = models.pendaftaran(
             iddokter = getiddokter,
             idpasien = getidpasien,
             tanggalpendaftaran=tanggalpendaftaran,
-            idpelayanan = getidpelayanan,
+            # idpelayanan = getidpelayanan,
         ).save()
         return redirect('pendaftaran')
 
@@ -313,3 +318,152 @@ def deletedetailpelayanan(request,id):
     detailpelayananobj=models.detailpelayanan.objects.get(iddetailpelayanan=id)
     detailpelayananobj.delete()
     return redirect('detailpelayanan')
+
+#Nota
+def nota (request,id) :
+    pendaftaranobj=models.pendaftaran.objects.get(idpendaftaran=id)
+    detailpelayananobj=models.detailpelayanan.objects.filter(idpendaftaran=id)
+    biaya=[]
+    for i in detailpelayananobj:
+        pelayananobj=models.pelayanan.objects.get(idpelayanan=i.idpelayanan.idpelayanan)
+        biaya.append(pelayananobj.hargapelayanan*i.jumlahjenispelayanan)
+    totallayanan1=sum(biaya)
+    # totals=[]
+    # detailobj=models.detailpelayanan.objects.get(iddetailpelayanan=id)
+    # total=int(pelayananobj.hargapelayanan)*int(detailobj.jumlahjenispelayanan)
+    # grandtotal =Sum('total')
+
+    response = HttpResponse(content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=list_of_students.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+    html_string = render_to_string(
+        'nota.html',{
+            'pendaftaran' : pendaftaranobj,
+            'detailpelayanan' : detailpelayananobj,
+            'totallayanan1' : totallayanan1,
+            # 'detailobj' : detailobj,
+            # 'total' : total,
+            # 'grandtotal' : grandtotal,
+            }
+    )
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output.seek(0)
+        response.write(output.read())
+    
+    return response
+def pdfgen(request):
+
+    # GET pelanggan
+    pendaftaranobj = models.pendaftaran.objects.all()
+
+    response = HttpResponse(content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=list_of_students.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+    html_string = render_to_string(
+        'pendaftaranx.html',{'pendaftaran' : pendaftaranobj, 'total':0}
+    )
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output.seek(0)
+        response.write(output.read())
+    
+    return response
+
+#Laporan
+def laporan(request):
+    if request.method == "GET":
+        return render(request,'laporan.html')
+    elif request.method == "POST":
+        detailobj =[]
+        # Get selected penyewaan object
+        mulai = request.POST['mulai']
+        akhir = request.POST['akhir']
+        pendaftaran = models.pendaftaran.objects.filter(tanggalpendaftaran__range=(mulai,akhir))
+        for item in pendaftaran:
+            data=[]
+            # Get selected detailcharge by idpelanggan
+            detailpelayanan = models.detailpelayanan.objects.filter(idpasien = item.idpasien)
+            data.append(item)
+            data.append(detailpelayanan)
+            totalcharge=detailpelayanan.aggregate(Sum('hargapelayanan'))
+            biaya = item.hargapelayanan
+            # if totalcharge['hargapelayanan__sum'] == None:
+            #     total = biaya
+            # else:
+            #     total = totalcharge['hargacharge__sum']+biayasewa
+            # data.append(total)
+            detailobj.append(data)
+            # total += total
+    
+        # pemasukan = []
+        # for harga in detailobj:
+        #     pemasukan.append(harga[2])
+        # totalpemasukan = sum(pemasukan)
+
+        return render(request,'laporan.html',{
+            #'detailobjek' :detailobj,
+            'tanggalmulai' : mulai,
+            'tanggalakhir' : akhir,
+            #'pemasukan' : totalpemasukan
+
+        })
+
+def laporanpdf(request,mulai,akhir):
+
+    detailobj =[]
+    # Get selected penyewaan object
+    pendaftaran = models.pendaftaran.objects.filter(tanggalpendaftaran__range=(mulai,akhir))
+    for item in pendaftaran:
+        data=[]
+        # Get selected detailcharge by idpelanggan
+        detailpelayanan = models.detailpelayanan.objects.filter(idpasien = item.idpasien)
+        data.append(item)
+        data.append(detailpelayanan)
+        totalcharge=detailpelayanan.aggregate(Sum('hargapelayanan'))
+        biaya = item.hargapelayanan
+        # if totalcharge['hargacharge__sum'] == None:
+        #     total = biayasewa
+        # else:
+        #     total = totalcharge['hargacharge__sum']+biayasewa
+        # data.append(total)
+        detailobj.append(data)
+    
+    # pemasukan = []
+    # for harga in detailobj:
+    #     pemasukan.append(harga[2])
+    # totalpemasukan = sum(pemasukan)
+
+    totaltransaksi = pendaftaran.count()
+    
+    response = HttpResponse(content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=list_of_students.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+    html_string = render_to_string(
+        'laporanpdf.html',{
+            'detailobjek' : detailobj,
+            # 'pemasukan' : totalpemasukan,
+            'totaltransaksi' : totaltransaksi,
+            'mulai' :mulai,
+            'akhir' : akhir
+            })
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output.seek(0)
+        response.write(output.read())
+    
+    render(request,'laporanpdf.html')
+    
+    return response
